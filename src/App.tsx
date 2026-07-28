@@ -19,6 +19,7 @@ import { VendorDirectory } from './components/vendors/VendorDirectory';
 import { AdminPanel } from './components/admin/AdminPanel';
 import { CheckoutModal } from './components/payment/CheckoutModal';
 import { AddProfileModal } from './components/profile/AddProfileModal';
+import { FirebaseLoginPage } from './components/auth/FirebaseLoginPage';
 
 import { 
   CURRENT_USER, 
@@ -213,6 +214,17 @@ export function App() {
             onSelectProfile={setSelectedProfile}
             onSendInterest={handleSendInterest}
             onStartChat={handleStartChat}
+          />
+        )}
+
+        {/* TAB: FIREBASE LOGIN PAGE */}
+        {activeTab === 'firebase-login' && (
+          <FirebaseLoginPage
+            onLoginSuccess={(usr) => {
+              setCurrentUser(usr);
+              setActiveTab('dashboard');
+            }}
+            onNavigateToRegister={() => setIsRegisterWizardOpen(true)}
           />
         )}
 

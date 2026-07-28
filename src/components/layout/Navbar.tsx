@@ -60,6 +60,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'home', label: 'Home', icon: Compass },
     { id: 'search', label: t.searchProfiles || 'Search Matches', icon: Search },
     { id: 'dashboard', label: t.dashboard || 'Dashboard', icon: UserCheck },
+    { id: 'firebase-login', label: 'Firebase Auth', icon: ShieldCheck },
     { id: 'astrology', label: t.astrology || 'Kundali Matching', icon: Sparkles },
     { id: 'vendors', label: t.vendors || 'Wedding Vendors', icon: Store },
     { id: 'admin', label: t.admin || 'Admin Panel', icon: ShieldCheck }
