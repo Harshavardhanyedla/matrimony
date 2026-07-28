@@ -14,7 +14,8 @@ import {
   ShieldCheck, 
   Store,
   User,
-  Crown
+  Crown,
+  PlusCircle
 } from 'lucide-react';
 import { LanguageSelector } from './LanguageSelector';
 import { LanguageCode, NotificationItem, UserProfile } from '../../types';
@@ -33,6 +34,7 @@ interface NavbarProps {
   onOpenAuth: (mode: 'login' | 'register') => void;
   onOpenNotifications: () => void;
   onOpenCheckout: () => void;
+  onOpenAddProfile: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -47,7 +49,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   currentUser,
   onOpenAuth,
   onOpenNotifications,
-  onOpenCheckout
+  onOpenCheckout,
+  onOpenAddProfile
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const t = TRANSLATIONS[currentLang];
@@ -161,6 +164,16 @@ export const Navbar: React.FC<NavbarProps> = ({
               )}
             </button>
           )}
+
+          {/* Add Profile Button */}
+          <button
+            onClick={onOpenAddProfile}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-[#C2185B] text-white shadow-sm hover:opacity-95 transition-opacity"
+            title="Add a new matrimony profile"
+          >
+            <PlusCircle className="w-4 h-4" />
+            <span>+ Add Profile</span>
+          </button>
 
           {/* Upgrade Premium Button */}
           <button

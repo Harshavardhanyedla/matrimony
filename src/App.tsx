@@ -18,6 +18,7 @@ import { KundaliMatching } from './components/astrology/KundaliMatching';
 import { VendorDirectory } from './components/vendors/VendorDirectory';
 import { AdminPanel } from './components/admin/AdminPanel';
 import { CheckoutModal } from './components/payment/CheckoutModal';
+import { AddProfileModal } from './components/profile/AddProfileModal';
 
 import { 
   CURRENT_USER, 
@@ -44,6 +45,7 @@ export function App() {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
   const [isRegisterWizardOpen, setIsRegisterWizardOpen] = useState(false);
+  const [isAddProfileOpen, setIsAddProfileOpen] = useState(false);
   const [selectedProfile, setSelectedProfile] = useState<UserProfile | null>(null);
   const [activeChatContact, setActiveChatContact] = useState<UserProfile | null>(null);
   const [videoCallPartner, setVideoCallPartner] = useState<UserProfile | null>(null);
@@ -126,6 +128,24 @@ export function App() {
     setProfiles((prev) => prev.filter((p) => p.id !== userId));
   };
 
+  const handleAddNewProfile = (newProf: UserProfile) => {
+    setProfiles((prev) => [newProf, ...prev]);
+    setSelectedProfile(newProf);
+    setNotifications((prev) => [
+      {
+        id: `notif-${Date.now()}`,
+        type: 'system',
+        title: 'New Profile Listed!',
+        message: `${newProf.name}'s profile is now live on SoulMatch!`,
+        timestamp: 'Just now',
+        isRead: false,
+        senderPhoto: newProf.photos[0],
+        senderName: newProf.name
+      },
+      ...prev
+    ]);
+  };
+
   return (
     <div className="min-h-screen bg-[#FAFAFA] dark:bg-[#0B0F17] text-slate-800 dark:text-slate-200 transition-colors flex flex-col font-sans">
       
@@ -146,6 +166,7 @@ export function App() {
           setCheckoutPlan({ name: 'Premium VIP', price: '₹10,000' });
           setIsCheckoutOpen(true);
         }}
+        onOpenAddProfile={() => setIsAddProfileOpen(true)}
       />
 
       {/* Main Content Router */}
@@ -258,6 +279,13 @@ export function App() {
         isOpen={isRegisterWizardOpen}
         onClose={() => setIsRegisterWizardOpen(false)}
         onComplete={handleRegisterComplete}
+      />
+
+      {/* 2b. Add Profile Modal for Users */}
+      <AddProfileModal
+        isOpen={isAddProfileOpen}
+        onClose={() => setIsAddProfileOpen(false)}
+        onAddProfile={handleAddNewProfile}
       />
 
       {/* 3. Detailed Profile View Modal */}
