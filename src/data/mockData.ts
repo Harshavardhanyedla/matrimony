@@ -78,7 +78,7 @@ export const CURRENT_USER: UserProfile = {
 export const MOCK_PROFILES: UserProfile[] = [
   {
     id: 'usr-01',
-    name: 'Ananya Sharma',
+    name: 'Rashmika',
     gender: 'Female',
     age: 25,
     dob: '2000-04-18',
@@ -150,7 +150,7 @@ export const MOCK_PROFILES: UserProfile[] = [
   },
   {
     id: 'usr-02',
-    name: 'Dr. Priya Reddy',
+    name: 'Pooja',
     gender: 'Female',
     age: 26,
     dob: '1999-08-22',
@@ -222,7 +222,7 @@ export const MOCK_PROFILES: UserProfile[] = [
   },
   {
     id: 'usr-03',
-    name: 'Siddharth Iyer',
+    name: 'Mahesh',
     gender: 'Male',
     age: 28,
     dob: '1997-02-10',
@@ -719,22 +719,22 @@ export const INITIAL_NOTIFICATIONS: NotificationItem[] = [
     id: 'notif-1',
     type: 'interest',
     title: 'Interest Received',
-    message: 'Ananya Sharma sent you a express interest request!',
+    message: 'Rashmika sent you a express interest request!',
     timestamp: '10 mins ago',
     isRead: false,
     senderPhoto: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80',
-    senderName: 'Ananya Sharma',
+    senderName: 'Rashmika',
     profileId: 'usr-01'
   },
   {
     id: 'notif-2',
     type: 'view',
     title: 'Profile Viewed',
-    message: 'Dr. Priya Reddy viewed your profile',
+    message: 'Pooja viewed your profile',
     timestamp: '1 hour ago',
     isRead: false,
     senderPhoto: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80',
-    senderName: 'Dr. Priya Reddy',
+    senderName: 'Pooja',
     profileId: 'usr-02'
   },
   {
@@ -764,7 +764,7 @@ export const INITIAL_CHAT_MESSAGES: Record<string, ChatMessage[]> = {
       id: 'm2',
       senderId: 'usr-00',
       receiverId: 'usr-01',
-      text: 'Hi Ananya! Thank you so much. I noticed you lead Product at Microsoft Mumbai - that is wonderful!',
+      text: 'Hi Rashmika! Thank you so much. I noticed you lead Product at Microsoft Mumbai - that is wonderful!',
       timestamp: '10:32 AM',
       isRead: true
     },
