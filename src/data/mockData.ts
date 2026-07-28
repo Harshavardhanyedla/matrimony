@@ -128,7 +128,7 @@ export const MOCK_PROFILES: UserProfile[] = [
       diet: ['Vegetarian']
     },
     photos: [
-      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80',
+      '/assets/rashmika.jpg',
       'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80',
       'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80'
     ],
@@ -272,7 +272,7 @@ export const MOCK_PROFILES: UserProfile[] = [
       diet: ['Vegetarian']
     },
     photos: [
-      'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80',
+      '/assets/mahesh.jpg',
       'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=80',
       'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=800&q=80'
     ],
@@ -722,7 +722,7 @@ export const INITIAL_NOTIFICATIONS: NotificationItem[] = [
     message: 'Rashmika sent you a express interest request!',
     timestamp: '10 mins ago',
     isRead: false,
-    senderPhoto: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80',
+    senderPhoto: '/assets/rashmika.jpg',
     senderName: 'Rashmika',
     profileId: 'usr-01'
   },
