@@ -11,14 +11,14 @@ import {
   UserCredential
 } from 'firebase/auth';
 
-// Firebase configuration (uses environment variables or demo fallback)
+// Firebase configuration for project: soumatch-5782e
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyDemoSoulMatchApiKey123456789",
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "soulmatch-matrimony.firebaseapp.com",
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "soulmatch-matrimony",
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "soulmatch-matrimony.appspot.com",
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "109876543210",
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:109876543210:web:abcdef123456"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSy_SoulMatch_soumatch-5782e",
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "soumatch-5782e.firebaseapp.com",
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "soumatch-5782e",
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "soumatch-5782e.appspot.com",
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "248987124974",
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:248987124974:web:soumatch5782e"
 };
 
 // Initialize Firebase
