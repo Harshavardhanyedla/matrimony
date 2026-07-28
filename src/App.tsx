@@ -50,7 +50,7 @@ export function App() {
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [checkoutPlan, setCheckoutPlan] = useState<{ name: string; price: string }>({
     name: 'Premium VIP',
-    price: '₹2,499'
+    price: '₹10,000'
   });
   const [showNotificationsDrawer, setShowNotificationsDrawer] = useState(false);
 
@@ -143,7 +143,7 @@ export function App() {
         onOpenAuth={handleOpenAuth}
         onOpenNotifications={() => setShowNotificationsDrawer(true)}
         onOpenCheckout={() => {
-          setCheckoutPlan({ name: 'Premium VIP', price: '₹2,499' });
+          setCheckoutPlan({ name: 'Premium VIP', price: '₹10,000' });
           setIsCheckoutOpen(true);
         }}
       />
@@ -204,7 +204,7 @@ export function App() {
             onStartChat={handleStartChat}
             onSendInterest={handleSendInterest}
             onOpenCheckout={() => {
-              setCheckoutPlan({ name: 'Premium VIP', price: '₹2,499' });
+              setCheckoutPlan({ name: 'Premium VIP', price: '₹10,000' });
               setIsCheckoutOpen(true);
             }}
           />

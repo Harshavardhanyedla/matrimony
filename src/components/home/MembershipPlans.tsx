@@ -10,25 +10,9 @@ export const MembershipPlans: React.FC<MembershipPlansProps> = ({ onOpenCheckout
 
   const plans = [
     {
-      name: 'Free Starter',
-      badge: 'Basic',
-      price: '₹0',
-      period: 'Forever Free',
-      description: 'Ideal for creating profile and browsing verified matches.',
-      color: 'border-slate-200 dark:border-slate-800',
-      buttonBg: 'bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-white',
-      features: [
-        'Create & Manage Profile',
-        'Send up to 5 Interests / month',
-        'Basic Search Filters',
-        'Receive Match Suggestions',
-        'Govt ID Verification Badge'
-      ]
-    },
-    {
       name: 'Premium VIP',
       badge: 'Most Popular',
-      price: billingCycle === 'Quarterly' ? '₹2,499' : '₹6,999',
+      price: billingCycle === 'Quarterly' ? '₹10,000' : '₹25,000',
       period: billingCycle === 'Quarterly' ? '/ 3 Months' : '/ 1 Year',
       description: 'Full access to chat, contact numbers, and AI match insights.',
       color: 'border-[#C2185B] ring-2 ring-[#C2185B]/20',
@@ -46,7 +30,7 @@ export const MembershipPlans: React.FC<MembershipPlansProps> = ({ onOpenCheckout
     {
       name: 'Elite Royal Concierge',
       badge: 'VIP Platinum',
-      price: billingCycle === 'Quarterly' ? '₹5,999' : '₹14,999',
+      price: billingCycle === 'Quarterly' ? '₹10,00,000' : '₹25,00,000',
       period: billingCycle === 'Quarterly' ? '/ 3 Months' : '/ 1 Year',
       description: 'Dedicated personal relationship manager & video call access.',
       color: 'border-amber-400 dark:border-amber-600',
@@ -105,7 +89,7 @@ export const MembershipPlans: React.FC<MembershipPlansProps> = ({ onOpenCheckout
         </div>
 
         {/* Plans Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto gap-8">
           {plans.map((plan, i) => (
             <div
               key={i}
