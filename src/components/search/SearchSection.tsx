@@ -43,6 +43,8 @@ export const SearchSection: React.FC<SearchSectionProps> = ({
     gender: 'All', // 'All' | 'Female' | 'Male'
     minAge: 20,
     maxAge: 40,
+    country: '',
+    city: '',
     religion: '',
     caste: '',
     motherTongue: '',
@@ -66,36 +68,40 @@ export const SearchSection: React.FC<SearchSectionProps> = ({
       if (!matchText.includes(q)) return false;
     }
 
-    // 2. Gender
+    // 2. Location Filters (Country & City)
+    if (filters.country && p.country.toLowerCase() !== filters.country.toLowerCase()) return false;
+    if (filters.city && !p.city.toLowerCase().includes(filters.city.toLowerCase())) return false;
+
+    // 3. Gender
     if (filters.gender !== 'All' && p.gender !== filters.gender) return false;
 
-    // 3. Religion
+    // 4. Religion
     if (filters.religion && p.religion.toLowerCase() !== filters.religion.toLowerCase()) return false;
 
-    // 4. Mother Tongue
+    // 5. Mother Tongue
     if (filters.motherTongue && p.motherTongue.toLowerCase() !== filters.motherTongue.toLowerCase()) return false;
 
-    // 5. Education
+    // 6. Education
     if (filters.education && !p.qualification.toLowerCase().includes(filters.education.toLowerCase())) return false;
 
-    // 6. Profession
+    // 7. Profession
     if (filters.profession && !p.occupation.toLowerCase().includes(filters.profession.toLowerCase())) return false;
 
-    // 7. Marital Status
+    // 8. Marital Status
     if (filters.maritalStatus && p.maritalStatus !== filters.maritalStatus) return false;
 
-    // 8. Diet
+    // 9. Diet
     if (filters.diet && p.diet !== filters.diet) return false;
 
-    // 9. Manglik
+    // 10. Manglik
     if (filters.manglik && p.manglik !== filters.manglik) return false;
 
-    // 10. Badges
+    // 11. Badges
     if (filters.isVerifiedOnly && !p.isVerified) return false;
     if (filters.isPremiumOnly && !p.isPremium) return false;
     if (filters.isOnlineOnly && !p.isOnline) return false;
 
-    // 11. Age Range
+    // 12. Age Range
     if (p.age < filters.minAge || p.age > filters.maxAge) return false;
 
     return true;
@@ -119,6 +125,8 @@ export const SearchSection: React.FC<SearchSectionProps> = ({
       gender: 'All',
       minAge: 18,
       maxAge: 50,
+      country: '',
+      city: '',
       religion: '',
       caste: '',
       motherTongue: '',
@@ -195,6 +203,16 @@ export const SearchSection: React.FC<SearchSectionProps> = ({
         {/* Active Filter Badges */}
         <div className="flex flex-wrap items-center gap-2 text-xs">
           <span className="font-bold text-slate-500">Active Filters:</span>
+          {filters.country && (
+            <span className="px-2.5 py-0.5 rounded-full bg-teal-100 dark:bg-teal-950 text-teal-700 text-[11px] font-bold">
+              Country: {filters.country}
+            </span>
+          )}
+          {filters.city && (
+            <span className="px-2.5 py-0.5 rounded-full bg-cyan-100 dark:bg-cyan-950 text-cyan-700 text-[11px] font-bold">
+              City: {filters.city}
+            </span>
+          )}
           {filters.gender !== 'All' && (
             <span className="px-2.5 py-0.5 rounded-full bg-rose-100 dark:bg-rose-950 text-[#C2185B] text-[11px] font-bold">
               {filters.gender}
@@ -293,6 +311,39 @@ export const SearchSection: React.FC<SearchSectionProps> = ({
             >
               Reset
             </button>
+          </div>
+
+          {/* Filter: Location (Country & City) */}
+          <div className="space-y-2">
+            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300">
+              Country
+            </label>
+            <select
+              value={filters.country}
+              onChange={(e) => setFilters({ ...filters, country: e.target.value })}
+              className="w-full p-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-800 text-slate-800 dark:text-white"
+            >
+              <option value="">All Countries</option>
+              <option value="India">India</option>
+              <option value="USA">USA</option>
+              <option value="Canada">Canada</option>
+              <option value="UK">United Kingdom</option>
+              <option value="Australia">Australia</option>
+              <option value="UAE">UAE</option>
+            </select>
+          </div>
+
+          <div className="space-y-2">
+            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300">
+              City / Location
+            </label>
+            <input
+              type="text"
+              value={filters.city}
+              onChange={(e) => setFilters({ ...filters, city: e.target.value })}
+              placeholder="e.g. Hyderabad, Mumbai, Bangalore, Fremont..."
+              className="w-full p-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-800 text-slate-800 dark:text-white"
+            />
           </div>
 
           {/* Filter: Age Range */}
