@@ -482,6 +482,30 @@ export const FirebaseLoginPage: React.FC<FirebaseLoginPageProps> = ({
             </div>
           )}
 
+          {/* 1-Click Instant Demo Login Buttons */}
+          <div className="p-3 rounded-2xl bg-rose-50/80 dark:bg-slate-800/80 border border-rose-100 dark:border-slate-700 space-y-2">
+            <span className="text-[11px] font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
+              <Sparkles className="w-3.5 h-3.5 text-[#C2185B]" />
+              Quick Demo Login:
+            </span>
+            <div className="grid grid-cols-2 gap-1.5">
+              <button
+                type="button"
+                onClick={() => handleSocialLogin('google')}
+                className="p-1.5 rounded-lg bg-white dark:bg-slate-900 border text-[11px] font-semibold text-slate-700 dark:text-slate-200 hover:border-[#C2185B] text-left truncate"
+              >
+                👤 Harsha (Demo)
+              </button>
+              <button
+                type="button"
+                onClick={() => handleSocialLogin('google')}
+                className="p-1.5 rounded-lg bg-white dark:bg-slate-900 border text-[11px] font-semibold text-slate-700 dark:text-slate-200 hover:border-[#C2185B] text-left truncate"
+              >
+                👩 Rashmika (Demo)
+              </button>
+            </div>
+          </div>
+
           {/* SOCIAL LOGINS */}
           <div className="pt-4 border-t border-slate-100 dark:border-slate-800 space-y-3">
             <span className="text-[10px] uppercase font-bold text-slate-400 block text-center">

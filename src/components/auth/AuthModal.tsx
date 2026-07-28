@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { X, Mail, Lock, Phone, KeyRound, ArrowRight, ShieldCheck, CheckCircle, Sparkles } from 'lucide-react';
+import { X, Mail, Lock, Phone, KeyRound, ArrowRight, ShieldCheck, CheckCircle, Sparkles, UserCheck } from 'lucide-react';
+import confetti from 'canvas-confetti';
 import { UserProfile } from '../../types';
+import { CURRENT_USER, MOCK_PROFILES } from '../../data/mockData';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -18,37 +20,50 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   onOpenRegisterWizard
 }) => {
   const [authMethod, setAuthMethod] = useState<'email' | 'otp'>('email');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('harsha@soulmatch.com');
+  const [password, setPassword] = useState('password123');
+  const [phone, setPhone] = useState('+91 98765 43210');
   const [otpSent, setOtpSent] = useState(false);
-  const [otpCode, setOtpCode] = useState(['', '', '', '', '', '']);
-  const [timer, setTimer] = useState(45);
+  const [otpCode, setOtpCode] = useState(['1', '2', '3', '4', '5', '6']);
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [requires2FA, setRequires2FA] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
-  const handleEmailSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Simulate 2FA check or direct success
-    setRequires2FA(true);
-  };
-
-  const handleSendOTP = () => {
-    if (!phone) return;
-    setOtpSent(true);
-    setTimer(45);
-  };
-
-  const handleVerify2FAorOTP = () => {
-    // Mock user login
+  const executeSuccessfulLogin = (userToLogin: UserProfile) => {
+    confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+    onLoginSuccess(userToLogin);
     onClose();
   };
 
+  const handleEmailSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim() || !password.trim()) {
+      setErrorMessage('Please enter both email and password.');
+      return;
+    }
+    // Check if matching mock profile exists or use default
+    const matched = MOCK_PROFILES.find((p) => p.email?.toLowerCase() === email.toLowerCase()) || CURRENT_USER;
+    executeSuccessfulLogin(matched);
+  };
+
+  const handleSendOTP = () => {
+    if (!phone.trim()) {
+      setErrorMessage('Please enter a valid phone number.');
+      return;
+    }
+    setOtpSent(true);
+    setErrorMessage(null);
+  };
+
+  const handleVerify2FAorOTP = () => {
+    executeSuccessfulLogin(CURRENT_USER);
+  };
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-100 dark:border-slate-800 overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
+      <div className="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
         
         {/* Header gradient banner */}
         <div className="bg-gradient-to-r from-[#C2185B] via-[#D81B60] to-[#6A1B9A] p-6 text-white text-center relative">
@@ -59,13 +74,22 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             <X className="w-5 h-5" />
           </button>
           
+          <div className="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center mx-auto mb-2 backdrop-blur-xs">
+            <UserCheck className="w-6 h-6 text-white" />
+          </div>
           <h3 className="text-xl font-black">Welcome Back to SoulMatch</h3>
-          <p className="text-xs text-rose-100 mt-1">Connect with verified life partners today</p>
+          <p className="text-xs text-rose-100 mt-1">Connect with 100% verified life partners</p>
         </div>
 
         {/* Form Container */}
-        <div className="p-6">
+        <div className="p-6 space-y-4">
           
+          {errorMessage && (
+            <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold">
+              {errorMessage}
+            </div>
+          )}
+
           {requires2FA ? (
             /* 2FA Verification Step */
             <div className="space-y-4 text-center">
@@ -98,7 +122,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 onClick={handleVerify2FAorOTP}
                 className="w-full py-3 rounded-xl bg-gradient-to-r from-[#C2185B] to-[#6A1B9A] text-white font-bold text-sm shadow-lg shadow-rose-500/25 hover:opacity-95 transition-opacity"
               >
-                Verify & Login
+                Verify & Login Now
               </button>
             </div>
           ) : isForgotPassword ? (
@@ -116,14 +140,17 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="name@domain.com"
+                    placeholder="harsha@soulmatch.com"
                     className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs text-slate-800 dark:text-white focus:ring-2 focus:ring-[#C2185B] focus:outline-none"
                   />
                 </div>
               </div>
               <button
-                onClick={() => setIsForgotPassword(false)}
-                className="w-full py-2.5 rounded-xl bg-[#C2185B] text-white font-bold text-xs"
+                onClick={() => {
+                  alert('Password reset link sent to ' + email);
+                  setIsForgotPassword(false);
+                }}
+                className="w-full py-2.5 rounded-xl bg-[#C2185B] text-white font-bold text-xs shadow-md"
               >
                 Send Reset Link
               </button>
@@ -136,7 +163,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             </div>
           ) : (
             /* Standard Login Tabs */
-            <div className="space-y-5">
+            <div className="space-y-4">
               
               {/* Method Switcher */}
               <div className="flex p-1 bg-slate-100 dark:bg-slate-800 rounded-xl">
@@ -211,7 +238,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                     type="submit"
                     className="w-full py-3 rounded-xl bg-gradient-to-r from-[#C2185B] to-[#6A1B9A] text-white font-bold text-xs shadow-lg shadow-rose-500/25 hover:opacity-95 transition-opacity"
                   >
-                    Log In Securely
+                    Log In Now
                   </button>
                 </form>
               ) : (
@@ -251,6 +278,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                             key={idx}
                             type="text"
                             maxLength={1}
+                            value={otpCode[idx]}
+                            onChange={(e) => {
+                              const n = [...otpCode];
+                              n[idx] = e.target.value;
+                              setOtpCode(n);
+                            }}
                             className="w-9 h-10 text-center text-sm font-bold rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800"
                           />
                         ))}
@@ -266,11 +299,32 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 </div>
               )}
 
-              {/* Social Logins */}
-              <div className="pt-3 border-t border-slate-100 dark:border-slate-800">
-                <div className="text-center text-[10px] uppercase font-bold text-slate-400 mb-3">
-                  Or Connect With
+              {/* 1-Click Demo Accounts Quick Login */}
+              <div className="p-3 rounded-2xl bg-rose-50/80 dark:bg-slate-800/80 border border-rose-100 dark:border-slate-700 space-y-2">
+                <span className="text-[11px] font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
+                  <Sparkles className="w-3.5 h-3.5 text-[#C2185B]" />
+                  1-Click Instant Demo Login:
+                </span>
+                <div className="grid grid-cols-2 gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() => executeSuccessfulLogin(CURRENT_USER)}
+                    className="p-1.5 rounded-lg bg-white dark:bg-slate-900 border text-[11px] font-semibold text-slate-700 dark:text-slate-200 hover:border-[#C2185B] text-left truncate"
+                  >
+                    👤 Harsha Vardhan
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => executeSuccessfulLogin(MOCK_PROFILES[0])}
+                    className="p-1.5 rounded-lg bg-white dark:bg-slate-900 border text-[11px] font-semibold text-slate-700 dark:text-slate-200 hover:border-[#C2185B] text-left truncate"
+                  >
+                    👩 Rashmika
+                  </button>
                 </div>
+              </div>
+
+              {/* Social Logins */}
+              <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
                 <div className="grid grid-cols-2 gap-3">
                   <button
                     onClick={handleVerify2FAorOTP}
@@ -298,7 +352,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               </div>
 
               {/* Registration CTA */}
-              <div className="pt-2 text-center">
+              <div className="pt-1 text-center">
                 <p className="text-xs text-slate-500">
                   New to SoulMatch?{' '}
                   <button

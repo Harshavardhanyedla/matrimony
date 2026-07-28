@@ -71,6 +71,12 @@ export function App() {
     setIsAuthOpen(true);
   };
 
+  const handleLoginSuccess = (userToLogin: UserProfile) => {
+    setCurrentUser(userToLogin);
+    setIsAuthOpen(false);
+    setActiveTab('dashboard');
+  };
+
   const handleRegisterComplete = (newProfilePartial: Partial<UserProfile>) => {
     const newProfile: UserProfile = {
       ...CURRENT_USER,
@@ -282,7 +288,7 @@ export function App() {
         isOpen={isAuthOpen}
         onClose={() => setIsAuthOpen(false)}
         initialMode={authMode}
-        onLoginSuccess={(usr) => setCurrentUser(usr)}
+        onLoginSuccess={handleLoginSuccess}
         onOpenRegisterWizard={() => setIsRegisterWizardOpen(true)}
       />
 
